@@ -6,6 +6,12 @@ project(allocation_basics)
 
 project(simpleCalc)
 
+project(FirstLibCall)
+
 add_subdirectory(allocation_basics)
 
 add_subdirectory(simpleCalc)
+
+add_subdirectory(FirstLib)
+
+add_subdirectory(FirstLibCall)

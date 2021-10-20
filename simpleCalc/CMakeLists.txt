@@ -11,4 +11,4 @@ add_executable(simpleCalc
         src/calc.cpp
         include/calc.h)
 
-target_link_libraries(simpleCalc pthread)
+target_link_libraries(simpleCalc pthread) #biblioteka do wątków
