@@ -15,3 +15,5 @@ add_subdirectory(simpleCalc)
 add_subdirectory(FirstLib)
 
 add_subdirectory(FirstLibCall)
+
+add_subdirectory(zadanie_tablice)
