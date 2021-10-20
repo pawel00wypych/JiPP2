@@ -17,3 +17,6 @@ add_subdirectory(FirstLib)
 add_subdirectory(FirstLibCall)
 
 add_subdirectory(zadanie_tablice)
+
+add_subdirectory(przekazywanie_przez_wsk)
+
