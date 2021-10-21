@@ -20,3 +20,6 @@ add_subdirectory(zadanie_tablice)
 
 add_subdirectory(przekazywanie_przez_wsk)
 
+add_subdirectory(obsluga_bledow)
+
+
