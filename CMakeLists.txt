@@ -22,4 +22,14 @@ add_subdirectory(przekazywanie_przez_wsk)
 
 add_subdirectory(obsluga_bledow)
 
+add_subdirectory(matrixLib)
+
+add_subdirectory(matrixApp)
+
+add_subdirectory(FirstClass)
+
+add_subdirectory(FristClassCall)
+
+
+
 
