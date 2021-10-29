@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include "matrix.h"
 
 using namespace std;
@@ -181,32 +182,74 @@ double** powerMatrix(double** M1,unsigned p,int r, int c)
     return M3;
 }
 
-double determinantMatrix(double** M1,int r,int c)
+void swapRows(double** M, int c, int n, int m)
 {
-    int i,j,p;
-    double determinant = 1,param;
-    double* row=new double[c];
-    if (r == 1)
-        return M1[0][0];
-
-for(p=0;p<c-1;p++)
-{
-    for(int n=0;n<c;n++)
-        row[n]=M1[p][n];
-
-    for (j = 0; j < r - 1-p; j++)
-    {
-        param = M1[j + 1+p][p] / row[p];
-        for (i = 0; i < c; i++)
-            M1[j + 1+p][i] -= param * row[i];
-    }
+    for(int i=0;i<c;i++)swap(M[n][i],M[m][i]);
 }
 
-    showMatrix(M1,r,c);
-for(i=0,j=0;i<r;i++,j++)
-    determinant*=M1[i][j];
+double determinantMatrix(double** M1,int r,int c)
+{
+    int i,j,k;
+    double q,det=1;
 
-    return determinant;
+    auto** temp = new double* [r];
+    for(i=0; i<r; ++i){
+        temp[i] = new double[c];
+        for(j=0;j<c;++j)temp[i][j]=M1[i][j];
+    }
+
+    if(r==1)return M1[0][0];
+    for(i=0;i<r-1;++i){
+        if(!temp[i][i]){
+            for(k=i+1;k<r;++k){
+                if(temp[k][i]){
+                    swapRows(temp,r,i,k);
+                    det*=-1;
+                    break;
+                }
+            }
+            if(!temp[i][i])return 0;
+        }
+        for(j=i+1;j<r;++j){
+            q = temp[j][i]/temp[i][i];
+            for(k=i;k<r;k++)temp[j][k]-= q*temp[i][k];
+        }
+    }
+    for(i=0;i<r;++i)det*=temp[i][i];
+
+    return det;
+}
+
+int determinantMatrix(int** M1,int r,int c)
+{
+    int i,j,k;
+    double q,det=1;
+
+        auto** temp = new double* [r];
+        for(i=0; i<r; ++i){
+            temp[i] = new double[c];
+            for(j=0;j<c;++j)temp[i][j]=M1[i][j];
+        }
+
+        if(r==1)return M1[0][0];
+        for(i=0;i<r-1;++i){
+            if(!temp[i][i]){
+                for(k=i+1;k<r;++k){
+                    if(temp[k][i]){
+                        swapRows(temp,r,i,k);
+                        det*=-1;
+                        break;
+                    }
+                }
+                if(!temp[i][i])return 0;
+            }
+            for(j=i+1;j<r;++j){
+                q = temp[j][i]/temp[i][i];
+                for(k=i;k<r;k++)temp[j][k]-= q*temp[i][k];
+            }
+        }
+        for(i=0;i<r;++i)det*=temp[i][i];
+        return (int)round(det);
 }
 
 double** readMatrixd(int r,int c)

@@ -197,7 +197,7 @@ int main(int argc,char* argv[])
             return 0;
     }
     if(func=="determinantMatrix")
-    {//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    {
         type=dataType();
         cout<<"Podaj ilosc wierszy i kolumn:";
         rows=checkIfNum();
@@ -210,9 +210,9 @@ int main(int argc,char* argv[])
         }
         if(type==2)
         {
-          /*  int** A=readMatrix(rows,columns);
+            int** A=readMatrix(rows,columns);
             cout<<determinantMatrix(A,rows,columns)<<endl;
-            deleteMatrix(A,rows);*/
+            deleteMatrix(A,rows);
         }
         return 0;
     }

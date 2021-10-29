@@ -162,6 +162,29 @@ void sortRowsInMatrix(double **M1,int r,int c);
  * funkcja wyświetla część informacji o działaniu programu
  */
 void help();
+/**
+ *funkcja zamienia miejscami dwa wskazane rzędy macierzy M1
+ * @param M - macierz typu double
+ * @param c - ilosc kolumn typu INT
+ * @param n - pierwszy rząd do zamiany typu INT
+ * @param m- drugi rząd do zamiany typu INT
+ */
+void swapRows(double** M, int c, int n, int m);
+/**
+ * funkcja oblicza wyznacznik macierzy M1
+ * @param M1 - macierz typu INT
+ * @param r - liczba wierszy typu INT
+ * @param c - liczba kolumn typu INT
+ * @return det - wyznacznik typu INT
+ */
+int determinantMatrix(int** M1,int r,int c);
+/**
+ * funkcja oblicza wyznacznik macierzy M1
+ * @param M1 - macierz typu DOUBLE
+ * @param r - liczba wierszy typu INT
+ * @param c - liczba kolumn typu INT
+ * @return det - wyznacznik typu DOUBLE
+ */
 double determinantMatrix(double** M1,int r,int c);
 /**
  * funkcja sprawdza czy macierz jest diagonalna i zwraca true lub false
