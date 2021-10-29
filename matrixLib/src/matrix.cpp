@@ -70,19 +70,17 @@ double** subtractMatrix(double **M1,double **M2,int r,int c)
 int** multiplyMatrix(int** M1,int** M2,int r,int c,int c2)
 {
     int **M3 = new int *[r];
-    for ( int i = 0; i < r;i++)
-        M3[i] = new int [c2];
+    for (int i = 0; i < r; i++)
+        M3[i] = new int[c2];
 
-    for(int p=0;p<c2;p++)
-    {
+    for(int i=0;i<r;i++)
+        for(int j=0;j<c;j++)
+            M3[i][j]=0;
+
+    for (int p = 0; p < c2; p++)
         for (int i = 0; i < r; i++)
-        {
             for (int j = 0; j < c; j++)
-            {
-                M3[i][p]+=M1[i][j] * M2[j][p];
-            }
-        }
-    }
+                M3[i][p] += M1[i][j] * M2[j][p];
     return M3;
 }
 
@@ -92,16 +90,15 @@ double** multiplyMatrix(double **M1,double** M2,int r,int c,int c2)
     for ( int i = 0; i < r;i++)
         M3[i] = new double [c2];
 
-    for(int p=0;p<c2;p++)
-    {
+    for(int i=0;i<r;i++)
+        for(int j=0;j<c2;j++)
+            M3[i][j]=0;
+
+    for (int p = 0; p < c2; p++)
         for (int i = 0; i < r; i++)
-        {
             for (int j = 0; j < c; j++)
-            {
-                M3[i][p]+=M1[i][j] * M2[j][p];
-            }
-        }
-    }
+                M3[i][p] += M1[i][j] * M2[j][p];
+
     return M3;
 }
 
@@ -111,13 +108,9 @@ int** multiplyByScalar(int** M1,int r,int c,int sc)
     for ( int i = 0; i < r;i++)
         M3[i] = new int [c];
 
-    for(int i=0;i<r;i++)
-    {
-        for(int j=0;j<c;j++)
-        {
-            M3[i][j]=M1[i][j]*sc;
-        }
-    }
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            M3[i][j] = M1[i][j] * sc;
     return M3;
 }
 
@@ -128,90 +121,103 @@ double** multiplyByScalar(double** M1,int r,int c,double sc)
         M3[i] = new double [c];
 
     for(int i=0;i<r;i++)
-    {
         for(int j=0;j<c;j++)
-        {
             M3[i][j]=M1[i][j]*sc;
-        }
-    }
+
     return M3;
 }
 
 int** transpozeMatrix(int** M1,int r,int c)
 {
-    int** MT=new int*[r];
-    for(int i=0;i<r;i++)
-        MT[i]=new int[c];
+    int** MT=new int*[c];
     for(int i=0;i<c;i++)
-    {
-        for(int j=0;j<r;j++)
-        {
-            MT[i][j]=M1[j][i];
-        }
-    }
+        MT[i]=new int[r];
+
+    for (int i = 0; i < c; i++)
+        for (int j = 0; j < r; j++)
+            MT[i][j] = M1[j][i];
     return MT;
 }
 
 double** transpozeMatrix(double** M1,int r,int c)
 {
-    double** MT=new double*[r];
-    for(int i=0;i<r;i++)
-        MT[i]=new double[c];
+    double** MT=new double*[c];
     for(int i=0;i<c;i++)
-    {
-        for(int j=0;j<r;j++)
-        {
-            MT[i][j]=M1[j][i];
-        }
-    }
+        MT[i]=new double[r];
+
+    for (int i = 0; i < c; i++)
+        for (int j = 0; j < r; j++)
+            MT[i][j] = M1[j][i];
     return MT;
 }
 
-
-int** powerMatrix(int** M1,int r,int c, unsigned p)
+int** powerMatrix(int** M1,unsigned p,int r, int c)
 {
     int **M3 = new int* [r];
-    for ( int i = 0; i < r;i++)
-        M3[i] = new int [c];
-    M3=M1;
+    for (int i = 0; i < r; i++)
+        M3[i] = new int[c];
+
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            M3[i][j] = M1[i][j];
 
     for (int i = 1; i < p; i++)
         M3 = multiplyMatrix(M3, M1, r, c, c);
     return M3;
 }
 
-double** powerMatrix(double** M1,int r,int c, unsigned p)
+double** powerMatrix(double** M1,unsigned p,int r, int c)
 {
     double **M3 = new double* [r];
     for ( int i = 0; i < r;i++)
         M3[i] = new double [c];
-    M3=M1;
 
-    for(int i=1;i<p;i++)
-    {
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            M3[i][j] = M1[i][j];
+
+    for (int i = 1; i < p; i++)
         M3 = multiplyMatrix(M3, M1, r, c, c);
-    }
     return M3;
 }
 
-int determinantMatrix(int** M1,int r,int c)
+double determinantMatrix(double** M1,int r,int c)
 {
-    int i,j;
-    int** temp;
+    int i,j,p;
+    double determinant = 1,param;
+    double* row=new double[c];
+    if (r == 1)
+        return M1[0][0];
 
+for(p=0;p<c-1;p++)
+{
+    for(int n=0;n<c;n++)
+        row[n]=M1[p][n];
+
+    for (j = 0; j < r - 1-p; j++)
+    {
+        param = M1[j + 1+p][p] / row[p];
+        for (i = 0; i < c; i++)
+            M1[j + 1+p][i] -= param * row[i];
+    }
+}
+
+    showMatrix(M1,r,c);
+for(i=0,j=0;i<r;i++,j++)
+    determinant*=M1[i][j];
+
+    return determinant;
 }
 
 double** readMatrixd(int r,int c)
 {
     double **M = new double *[r];
     cout<<"Wprowadz elementy macierzy:";
-    for ( int i = 0; i < r; ++i )
+    for ( int i = 0; i < r; i++ )
     {
         M[i] = new double [c]; //alokacja pamieci
-        for ( int j = 0; j < c; ++j)
-        {
-            M[i][j]=checkIfNumD();
-        }
+        for (int j = 0; j < c; j++)
+            M[i][j] = checkIfNumD();
     }
     return M;
 }
@@ -220,13 +226,11 @@ int** readMatrix(int r,int c)
 {
     int **M = new int *[r];
     cout<<"Wprowadz elementy macierzy:";
-    for ( int i = 0; i < r; ++i )
+    for ( int i = 0; i < r; i++ )
     {
         M[i] = new int [c]; //alokacja pamieci
-        for ( int j = 0; j < c; ++j)
-        {
-           M[i][j]=checkIfNum();
-        }
+        for (int j = 0; j < c; j++)
+            M[i][j] = checkIfNum();
     }
     return M;
 }
@@ -248,25 +252,17 @@ void swap(double &x,double &y)
 
 void sortRow(int *row,int c)
 {
-    for(int i=0;i<c-1;i++)
-    {
-        for(int j=0;j<c-1;j++)
-        {
-            if(row[j]>row[j+1])
-            swap(row[j],row[j+1]);
-        }
-    }
+    for (int i = 0; i < c - 1; i++)
+        for (int j = 0; j < c - 1; j++)
+            if (row[j] > row[j + 1])
+                swap(row[j], row[j + 1]);
 }
 void sortRow(double *row,int c)
 {
-    for(int i=0;i<c-1;i++)
-    {
-        for(int j=0;j<c-1;j++)
-        {
-            if(row[j]>row[j+1])
-                swap(row[j],row[j+1]);
-        }
-    }
+    for (int i = 0; i < c - 1; i++)
+        for (int j = 0; j < c - 1; j++)
+            if (row[j] > row[j + 1])
+                swap(row[j], row[j + 1]);
 }
 
 void sortRowsInMatrix(int **M1,int r,int c)
@@ -283,27 +279,19 @@ void sortRowsInMatrix(double **M1,int r,int c)
 
 bool matrixIsDiagonal(int** M1,int r,int c)
 {
-    for(int i=0;i<r;i++)
-    {
-        for(int j=0;j<c;j++)
-        {
-            if(i!=j && M1[i][j]!=0)
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            if (i != j && M1[i][j] != 0)
                 return false;
-        }
-    }
     return true;
 }
 
 bool matrixIsDiagonal(double** M1,int r,int c)
 {
-    for(int i=0;i<r;i++)
-    {
-        for(int j=0;j<c;j++)
-        {
-            if(i!=j && M1[i][j]!=0)
-                return false;
-        }
-    }
+    for (int i = 0; i < r; i++)
+        for (int j = 0; j < c; j++)
+            if (i != j && M1[i][j] != 0)
+                return false;;
     return true;
 }
 
@@ -321,52 +309,32 @@ void deleteMatrix(double** M,int r)
     delete[] M;//uwolnienie pamieci
 }
 
-void help()
-{
-    cout<<"|------------------------------------------------------------------------------------------------|\n\t\t\t\t\t   HELP\n|------------------------------------------------------------------------------------------------|\n";
-    cout<<"WSZYSTKIE WARTOSCI KTORE POBIERA PROGRAM(OPROCZ PARAMETRU) SA ROZDZIELONE PRZEZ KLAWISZ ENTER\n";
-    cout<<"MACIERZE ORAZ TABLICE SA WCZYTYWANE W NASTEPUJACY SPOSOB: KOLUMNA PO KOLUMNIE W WIERSZ[0] -> \n";
-    cout<<"KOLUMNA PO KOLUMNIE W WIERSZ[1] itd. OCZYWISCIE KAZDA WAROTSC RODZIELONA ENTEREM\n";
-    cout<<"ABY ROZWINAC KOLEJNE CZESCI DOKUMENTACJI WCISNIJ KLAWISZ ENTER\n";
-    cout<<"|------------------------------------------------------------------------------------------------|\n";
-    cout<<"1 - addMatrix\n";
-    getchar();getchar();
-    cout<<"funkcja pobiera 4 parametry:\n**M1, **M2 - podwojny wskaznik na macierz(typu INT lub DOUBLE)\n";
-    cout<<"r - liczbe wierszy(rows) zawsze typu INT\nc - liczbe kolumn(columns) zawsze typu INT\n";
-    cout<<"dzialanie:\n";
-    cout<<"funkcja alokuje pamiec dla macierzy wynikowej M3 o tych samych wymiarach co M1 i M2, i wypelnia ja\n";
-    cout<<"M3[i][j] = M1[i][j] + M2[i][j]\nfunkcja zwraca podwojny wskaznik na macierz M3\n";
-    cout<<"|------------------------------------------------------------------------------------------------|\n";
-    cout<<"2 - subtractMatrix\n";
-    getchar();
-    cout<<"funkcja pobiera 4 parametry:\n**M1, **M2 - podwojny wskaznik na macierz(typu INT lub DOUBLE)\n";
-    cout<<"r - liczbe wierszy(rows) zawsze typu INT\nc - liczbe kolumn(columns) zawsze typu INT\n";
-    cout<<"dzialanie:\n";
-    cout<<"funkcja alokuje pamiec dla macierzy wynikowej M3 o tych samych wymiarach co M1 i M2, i wypelnia ja\n";
-    cout<<"M3[i][j] = M1[i][j] - M2[i][j]\nfunkcja zwraca podwojny wskaznik na macierz M3\n";
-    cout<<"|------------------------------------------------------------------------------------------------|\n";
-    cout<<"3 - multiplyMatrix\n";
-    getchar();
-    cout<<"funkcja pobiera 5 parametrow:\n**M1, **M2 - podwojny wskaznik na macierz(typu INT lub DOUBLE)\n";
-    cout<<"r - liczbe wierszy(rows) zawsze typu INT\nc - liczbe kolumn 1 macierzy(columns) zawsze typu INT\n";
-    cout<<"c2 - liczbe kolumn 2  macierzy zawsze typu INT\n";
-    cout<<"dzialanie:\n";
-    cout<<"funkcja alokuje pamiec dla macierzy wynikowej M3 o r - wierszach i c2 - kolumnach, i wypelnia ja\n";
-    cout<<"M3[i][p] = M3[i][p] + M1[i][j] * M2[j][p]\nfunkcja zwraca podwojny wskaznik na macierz M3\n";
-    cout<<"|------------------------------------------------------------------------------------------------|\n";
-    cout<<"4 - multiplyByScalar\n";
-    getchar();
-    cout<<"funkcja pobiera 4 parametry:\n**M1 - podwojny wskaznik na macierz(typu INT lub DOUBLE)\n";
-    cout<<"r - liczbe wierszy(rows) zawsze typu INT\nc - liczbe kolumn macierzy(columns) zawsze typu INT\n";
-    cout<<"sc - skalar przez ktory jest mnozona macierz (typu INT lub DOUBLE)\n";
-    cout<<"dzialanie:\n";
-    cout<<"funkcja alokuje pamiec dla macierzy wynikowej M3 o tych samych wymiarach co M1, i wypelnia ja\n";
-    cout<<"M3[i][j]=M1[i][j]*sc\nfunkcja zwraca podwojny wskaznik na macierz M3\n";
-    cout<<"|------------------------------------------------------------------------------------------------|\n";
+void help() {
+    cout<< "|------------------------------------------------------------------------------------------------|\n\t\t\t\t\t   HELP\n|------------------------------------------------------------------------------------------------|\n";
+    cout << "PROGRAM UMOZLIWIA WYKONANIE OKRESLONYCH DZIALAN NA MACIERZACH, POBIERA PIERWSZY PRZEKAZANY PARAMETR\n";
+    cout << "KTORYM POWINNA BYC NAZWA FUNKCJI KTORA CHCEMY URUCHOMIC(PARAMETRY SA WYPISANE PONIZEJ)\n";
+    cout << "WSZYSTKIE WARTOSCI KTORE POBIERA PROGRAM(OPROCZ PARAMETRU) SA ROZDZIELONE PRZEZ KLAWISZ ENTER\n";
+    cout << "MACIERZE ORAZ TABLICE SA WCZYTYWANE W NASTEPUJACY SPOSOB: KOLUMNA PO KOLUMNIE W WIERSZ[0] -> \n";
+    cout << "KOLUMNA PO KOLUMNIE W WIERSZ[1] itd. OCZYWISCIE KAZDA WARTOSC RODZIELONA ENTEREM\n";
+    cout << "|------------------------------------------------------------------------------------------------|\n";
+    cout << "1 - addMatrix\n";
+    cout << "2 - subtractMatrix\n";
+    cout << "3 - multiplyMatrix\n";
+    cout << "4 - multiplyByScalar \n";
+    cout << "5 - transpozeMatrix \n";
+    cout << "6 - powerMatrix \n";
+    cout << "7 - determinantMatrix \n";
+    cout << "8 - matrixIsDiagonal \n";
+    cout << "9 - swap\n";
+    cout << "10 - sortRow \n";
+    cout << "11 - sortRowsInMatrix \n";
+    cout << "|------------------------------------------------------------------------------------------------|\n";
 }
 
 int checkIfNum()
 {
+    //Nie nalezy podawac wartosci na wejscie po spacji, przy podaniu drugiej wartosci typu double(!) czesc dziesietna
+    //zostanie ucieta a wczytana tylko wartosc przed kropka
     int var;
     if(!(cin>>var))
     {
@@ -402,7 +370,7 @@ int dataType()
 
 void showMatrix(int** M,int r,int c)
 {
-    cout<<" ";
+    cout<<"\n";
     for(int i=0;i<r;i++)
     {
         for(int j=0;j<c;j++)
@@ -414,7 +382,7 @@ void showMatrix(int** M,int r,int c)
 
 void showMatrix(double** M,int r,int c)
 {
-    cout<<" ";
+    cout<<"\n";
     for(int i=0;i<r;i++)
     {
         for(int j=0;j<c;j++)
