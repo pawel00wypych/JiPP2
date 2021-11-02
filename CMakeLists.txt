@@ -28,7 +28,7 @@ add_subdirectory(matrixApp)
 
 add_subdirectory(FirstClass)
 
-add_subdirectory(FristClassCall)
+add_subdirectory(FirstClassCall)
 
 
 
