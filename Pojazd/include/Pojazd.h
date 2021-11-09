@@ -15,9 +15,10 @@ private:
     int ileMiejsc;
     string *tabMiejsc;
 public:
+    Pojazd(string nRejestracyjny,string nazwa, string marka, string typ, int ileMiejsc);
     Pojazd(Pojazd &pojazd);
-    Pojazd(string &nRejestracyjny,string &nazwa,string &marka,string &typ,int &ileMiejsc);
-
+    void pasazer(int ,string);
+    void wyswietl();
 };
 
 
