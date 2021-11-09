@@ -30,6 +30,10 @@ add_subdirectory(FirstClass)
 
 add_subdirectory(FirstClassCall)
 
+add_subdirectory(lab5)
+
+add_subdirectory(Pojazd)
+
 
 
 
