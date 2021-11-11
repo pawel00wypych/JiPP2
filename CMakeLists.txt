@@ -34,6 +34,8 @@ add_subdirectory(lab5)
 
 add_subdirectory(Pojazd)
 
+add_subdirectory(test)
 
+add_subdirectory(lab5zad3)
 
 
