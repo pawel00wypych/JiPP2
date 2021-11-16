@@ -38,4 +38,9 @@ add_subdirectory(test)
 
 add_subdirectory(lab5zad3)
 
+add_subdirectory(node)
+
+add_subdirectory(vector)
+
+
 
