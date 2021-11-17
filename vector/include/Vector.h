@@ -27,20 +27,46 @@ public:
         return {x + rhs.x, y + rhs.y};
     }
 
-    Vector &operator+=(const Vector &rhs) {//od razu z przypisaniem wartości
+    Vector &operator+=(const Vector &rhs) {//od razu z przypisaniem wartości jak dla zmiennych: a+=b -> a=a+b
         this->x = this->x + rhs.x;
         this->y = this->y + rhs.y;
         return *this;
     }
 
     Vector operator!=(const Vector){
-        x=-1*x;
-        y=-1*y;
+        return {-1*x, -1*y};
     }
 
-    Vector operator-=(const Vector &rhs){
-        x=-1*x;
-        y=-1*y;
+    Vector &operator-=(const Vector &rhs){
+        this->x = this->x - rhs.x;
+        this->y = this->y - rhs.y;
+        return *this;
+    }
+
+    Vector operator-(const Vector &rhs) const {
+        return {x - rhs.x, y - rhs.y};
+    }
+
+    double operator*(const Vector &rhs) const {
+        return {x * rhs.x+ y * rhs.y};
+    }
+
+    Vector &operator*=(const double &sk){
+        this->x = this->x *sk;
+        this->y = this->y *sk;
+        return *this;
+    }
+
+    bool operator==(const Vector &rhs){
+        if(x==rhs.x && y==rhs.y)
+            return true;
+        else return false;
+    }
+
+    bool operator>=(const Vector &rhs){
+        if(x>=rhs.x && y>=rhs.y)
+            return true;
+        else return false;
     }
     void print();
 };
