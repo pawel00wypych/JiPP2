@@ -42,5 +42,9 @@ add_subdirectory(node)
 
 add_subdirectory(vector)
 
+add_subdirectory(urojone)
+
+add_subdirectory(lab7)
+
 
 

@@ -51,6 +51,8 @@ public:
         return {x * rhs.x+ y * rhs.y};
     }
 
+   // friend Vector operator*(const double &lhs, const Vector &rhs);
+
     Vector &operator*=(const double &sk){
         this->x = this->x *sk;
         this->y = this->y *sk;

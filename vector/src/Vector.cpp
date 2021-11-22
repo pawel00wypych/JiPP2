@@ -7,3 +7,4 @@ void Vector::print()
     cout<<"x="<<x<<" y="<<y<<"\n";
 }
 
+
