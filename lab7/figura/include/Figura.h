@@ -12,7 +12,8 @@ protected:
 
 public:
     Figura(){};
-    Figura(string kolor,string nazwa):kolor("zielony"),nazwa("kwadrat"){};
+    Figura(string kolor,string nazwa):kolor("nijaki"),nazwa("cos"){};
+    virtual double getArea() = 0;
     ~Figura(){};
 };
 
@@ -21,7 +22,7 @@ protected:
     double bok;
 public:
     Kwadrat(){};
-    Kwadrat(double bok):Figura(),bok(bok){};
+    Kwadrat(double bok):Figura(),bok(bok){kolor="zielony"; nazwa="kwadrat";};
     double obwod()
     {return 4*bok;}
     double pole()
@@ -66,4 +67,29 @@ public:
     ~Trojkat(){};
 };
 
+class Circle:  public Figura{
+protected:
+    double r;
+public:
+    Circle(){};
+    Circle(double r):r(r){if(r<0){cout<<"promien nie moze byc ujemny!\n";exit(1);}};
+    virtual double getArea(){
+        return 3.14*r*r;
+    };
+
+    ~Circle();
+};
+
+class Rectangle:  public Figura{
+protected:
+    double a,b;
+public:
+    Rectangle(){};
+    Rectangle(double a,double b):a(a),b(b){};
+    virtual double getArea(){
+        return a*b;
+    };
+
+    ~Rectangle();
+};
 #endif //FIRSTLIBCALL_FIGURA_H
