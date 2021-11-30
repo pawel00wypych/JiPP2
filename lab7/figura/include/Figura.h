@@ -17,15 +17,15 @@ public:
     ~Figura(){};
 };
 
-class Kwadrat: public Figura {
-protected:
+class Kwadrat:public Figura {
+private:
     double bok;
 public:
     Kwadrat(){};
-    Kwadrat(double bok):Figura(),bok(bok){kolor="zielony"; nazwa="kwadrat";};
+    Kwadrat(string kolor,string nazwa,double bok):Figura(kolor,nazwa),bok(bok){};
     double obwod()
     {return 4*bok;}
-    double pole()
+    virtual double getArea()
     {return bok*bok;}
     ~Kwadrat(){};
 };
@@ -67,7 +67,7 @@ public:
     ~Trojkat(){};
 };
 
-class Circle:  public Figura{
+class Circle:public Figura{
 protected:
     double r;
 public:

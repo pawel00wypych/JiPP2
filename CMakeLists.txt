@@ -46,5 +46,6 @@ add_subdirectory(urojone)
 
 add_subdirectory(lab7)
 
+add_subdirectory(lab8)
 
 
