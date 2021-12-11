@@ -14,6 +14,7 @@ using namespace std;
  * @return M3-podwójny wskaźnik na macierz M3 typu INT
  */
 int** addMatrix(int **M1,int **M2,int r,int c);
+
 /**
  *funkcja dodaje macierze M1 oraz M2 i zapisuje wynik w M3
  * @param M1-podwójny wskaźnik na macierz M1 typu DOUBLE
@@ -115,6 +116,7 @@ int** powerMatrix(int** M1,unsigned p,int r, int c);
  * @return M3 - podwójny wskaźnik na macierz M3 typu DOUBLE
  */
 double** powerMatrix(double** M1,unsigned p,int r,int c);
+
 int determinantMatrix(int** M1,int r,int c);
 /**
  * funkcja pobiera przez referencję dwie liczby, następnie

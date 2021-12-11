@@ -16,7 +16,7 @@ public:
     void setTitle(string &t);
     virtual string getContent(int)=0;
     virtual void setContent()=0;
-    ~Note(){cout<<"\njestem destruktorem\n";};
+    ~Note(){};
 };
 
 class TextNote:public Note {

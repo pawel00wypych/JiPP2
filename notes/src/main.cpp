@@ -24,8 +24,8 @@ int main()
     {
         int x;
         cout<<"1 - utworz notatke\n2 - edytuj notatke\n3 - usun notatke\n4 - usun wszystkie notatki\n5 - pokaz notatke\n6 - koniec\n";
-        getchar();
         cin>>x;
+        getchar();
         switch(x)
         {
             case 1:

@@ -48,4 +48,5 @@ add_subdirectory(lab7)
 
 add_subdirectory(notes)
 
+add_subdirectory(lab9)
 
