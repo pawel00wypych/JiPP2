@@ -50,3 +50,4 @@ add_subdirectory(notes)
 
 add_subdirectory(lab9)
 
+add_subdirectory(lab10)
