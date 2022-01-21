@@ -51,3 +51,13 @@ add_subdirectory(notes)
 add_subdirectory(lab9)
 
 add_subdirectory(lab10)
+
+add_subdirectory(lab11)
+
+add_subdirectory(lab12)
+
+add_subdirectory(lab12.2)
+
+add_subdirectory(WorkoutLogger)
+
+
