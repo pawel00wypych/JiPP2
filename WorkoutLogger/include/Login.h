@@ -7,15 +7,27 @@
 #include <iostream>
 #include <string.h>
 #include "Menu.h"
+#include "Error.h"
 #include <fstream>
+#include "Exercise.h"
+#include "MainExercise.h"
 
 using namespace std;
 static ifstream file;
 
 class Login {
 private:
-    string name="",surname="";
-    int squat = 100;
+    enum appMode {
+        SHOWLOGMENU,
+        ADDACCESSORYEXERCISE,
+        ADDDMAINEXERCISE,
+        ADDWORKOUT,
+        CREATEWORKOUT,
+        SHOWHISTORY,
+        SHOWEXERCISES,
+        LOGOUT
+    };
+    string name,surname;
 public:
     Login();
     Login(string,string);
@@ -25,7 +37,8 @@ public:
     int checkIfExist();
     void openAcc();
     void showData();
-
+    void showLogMenu();
+    void logMenu();
 };
 
 

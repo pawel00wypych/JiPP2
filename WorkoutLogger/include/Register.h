@@ -9,6 +9,7 @@
 #include <string.h>
 #include <fstream>
 #include "Menu.h"
+#include <sys/stat.h>
 
 using namespace std;
 static ofstream acc;

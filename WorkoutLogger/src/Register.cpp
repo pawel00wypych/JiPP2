@@ -3,6 +3,9 @@
 //
 
 #include "Register.h"
+Register::Register() {
+
+}
 
 Register::Register(string name,string surname):name(name),surname(surname){
 
@@ -24,16 +27,15 @@ void Register::setSurname() {
 
 void Register::makeAcc() {
 
-    users.open ("users.txt",std::ios_base::app);
+    users.open ("usersDIR/users.txt",std::ios_base::app);
     users<<currentDateTime()<<"\n";
     users<<name<<" "<<surname<<"\n";
     users.close();
-    acc.open(name+surname+".txt",std::ios_base::app);
+    string stringpath = "usersDIR/"+name+surname+"DIR/";
+    mkdir(stringpath.c_str());
+    acc.open(stringpath + name+surname+".txt",std::ios_base::app);
     acc<<currentDateTime()<<" created\n";
     acc.close();
     users.close();
 }
 
-Register::Register() {
-
-}

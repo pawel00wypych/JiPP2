@@ -7,4 +7,6 @@ add_executable(WorkoutLogger src/main.cpp
         src/Menu.cpp
         src/Error.cpp
         src/Register.cpp
-        src/Login.cpp)
+        src/Login.cpp
+        src/Exercise.cpp
+        src/MainExercise.cpp)

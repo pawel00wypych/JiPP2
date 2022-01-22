@@ -19,5 +19,6 @@ public:
     int isInt();
 };
 
+static Error *err= new Error();
 
 #endif //FIRSTLIBCALL_ERROR_H

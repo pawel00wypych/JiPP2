@@ -19,7 +19,6 @@ int main(int argc,char* argv[])
     while(1)
     {
         cout<<"*************************************"<<"WorkoutLogger"<<"*************************************"<<endl;
-        menu->showMenu();
         menu->getOption();
     }
 }

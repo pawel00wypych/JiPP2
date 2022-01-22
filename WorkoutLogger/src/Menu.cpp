@@ -6,8 +6,8 @@ Menu::~Menu() {
 }
 
 Menu::Menu(string name,string surname):name(name),surname(surname){
-
-    users.open ("users.txt",std::ios_base::app);
+    system("mkdir usersDIR");
+    users.open ("usersaDIR/users.txt",std::ios_base::app);
     users.close();
 }
 
@@ -28,6 +28,7 @@ void Menu::getOption() {
     Login *log = new Login();
     option = 0;
     while(1) {
+        showMenu();
         cout<<"Choose:";
         Menu::option = err->isInt();
         switch (option) {
@@ -45,6 +46,7 @@ void Menu::getOption() {
                     showMenu();
                 break;
             case EXIT:
+                cout<<"***************************"<<"APP CLOSED"<<"***************************"<<endl;
                     exit(0);
             default:
                 cout<<"Wrong choice!\n";

@@ -27,16 +27,14 @@ void Login::setSurname() {
 }
 
 void Login::openAcc() {
-    //ifstream file(name+surname+".txt");
     if(checkIfExist() == -1){
-        exit(-1);
+        return ;
     };
-    showData();
-
+    logMenu();
 }
 
 int Login::checkIfExist() {
-    ifstream file(name+surname+".txt");
+    ifstream file("usersDIR/"+name+surname+"DIR/"+name+surname+".txt");
     if(!file.is_open())
     {
         cout<<"User is not registered or there is a problem with ifstream\n";
@@ -49,7 +47,7 @@ int Login::checkIfExist() {
 
 void Login::showData() {
     string line;
-    ifstream file(name+surname+".txt");
+    ifstream file("usersDIR/"+name+surname+"DIR/"+name+surname+".txt");
     if (file.is_open())
     {
         while ( getline (file,line) )
@@ -60,4 +58,52 @@ void Login::showData() {
     }
 
     else cout << "Unable to open file";
+}
+
+void Login::showLogMenu() {
+    cout<<"***************************"<<name<<" "<<surname<<"***************************"<<endl;
+    cout<<"\n\n";
+    cout<<SHOWLOGMENU<<" - show logmenu\n";
+    cout<<ADDACCESSORYEXERCISE<<" - add accessory exercise\n";
+    cout<<ADDDMAINEXERCISE<<" - add main exercise\n";
+    cout<<ADDWORKOUT<<" - add workout\n";
+    cout<<CREATEWORKOUT<<" - create workout\n";
+    cout<<SHOWHISTORY<<" - show history of workouts\n";
+    cout<<SHOWEXERCISES<<" - show exercises\n";
+    cout<<LOGOUT<<" - logout\n";
+}
+
+void Login::logMenu() {
+    MainExercise ex1(name,surname);
+    int option = 0;
+    while(1) {
+        showLogMenu();
+        cout<<"Choose:";
+        option = err->isInt();
+        switch (option) {
+            case SHOWLOGMENU:
+                break;
+            case ADDACCESSORYEXERCISE:
+                break;
+            case ADDDMAINEXERCISE:
+                //ex1 = new MainExercise(name,surname);
+                ex1.setName();
+                ex1.setWeight(option);
+               // ex1->setWeight((double)option);
+                ex1.showData();
+                ex1.saveData();
+                break;
+            case ADDWORKOUT:
+                break;
+            case CREATEWORKOUT:
+                break;
+            case SHOWEXERCISES:
+                break;
+            case LOGOUT:
+                return;
+            default:
+                cout<<"Wrong choice!\n";
+                break;
+        }
+    }
 }

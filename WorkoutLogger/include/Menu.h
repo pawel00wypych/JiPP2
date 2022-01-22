@@ -12,6 +12,7 @@
 #include "Error.h"
 #include "Register.h"
 #include "Login.h"
+#include <dir.h>
 
 using namespace std;
 static ofstream users;
@@ -36,7 +37,6 @@ public:
     ~Menu();
     static void showMenu();
     void getOption();
-    Error *err= new Error();
     string getName();
     string getSurname();
 };
