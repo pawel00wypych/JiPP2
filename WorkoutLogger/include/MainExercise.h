@@ -12,18 +12,24 @@
 static fstream mainex;
 using namespace std;
 
+/*
+ * class inherits from Exercise, gives method:
+ * saveData
+ * field:
+ * string user
+ */
 class MainExercise: public Exercise {
 private:
     string user;
-    string name;
-//    int weight;
-  //  double weight_d;
 
 public:
     MainExercise();
     MainExercise(string,string);
     ~MainExercise();
-    string getName();
+
+    /*
+     * write name, weight, date into userM_EX.txt
+     */
     void saveData();
 };
 

@@ -10,12 +10,21 @@
 
 using namespace std;
 
+/**
+ * class gives methods:
+ * isInt
+ */
 class Error {
 private:
 
 public:
     Error();
     ~Error();
+
+    /***
+     * function checks if given char is int
+     * @return int value
+     */
     int isInt();
 };
 

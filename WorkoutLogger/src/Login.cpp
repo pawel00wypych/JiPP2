@@ -4,11 +4,11 @@
 
 #include "Login.h"
 
-Login::Login() {
+Login::Login(): name(""),surname("") {
 
 }
 
-Login::Login(string name, string surname):name(name),surname(surname) {
+Login::Login(string name, string surname):name(name),surname(surname),user(name+surname) {
 
 }
 
@@ -26,38 +26,46 @@ void Login::setSurname() {
     cin>>surname;
 }
 
-void Login::openAcc() {
-    if(checkIfExist() == -1){
-        return ;
-    };
-    logMenu();
-}
-
-int Login::checkIfExist() {
-    ifstream file("usersDIR/"+name+surname+"DIR/"+name+surname+".txt");
-    if(!file.is_open())
+void Login::checkIfExist() {
+    user = name + surname;
+    file.open("usersDIR/"+user+"DIR/"+user+".txt");
+    if(!file.good())
     {
         cout<<"User is not registered or there is a problem with ifstream\n";
         file.close();
-        return -1;
+        return;
     }
     file.close();
-    return 0;
+    logMenu();
 }
 
-void Login::showData() {
+void Login::showExercises() {
     string line;
-    ifstream file("usersDIR/"+name+surname+"DIR/"+name+surname+".txt");
+    file.open("usersDIR/"+user+"DIR/"+user+"M_EX.txt");
     if (file.is_open())
     {
+        cout<<"Main exercises:\n";
         while ( getline (file,line) )
         {
             cout << line << '\n';
         }
         file.close();
     }
+    else cout << "Unable to open "<<user<<"M_EX.txt\n";
 
-    else cout << "Unable to open file";
+    ifstream file2("usersDIR/"+user+"DIR/"+user+"ACC_EX.txt");
+    if (file2.is_open())
+    {
+        cout<<"Accessory exercises:\n";
+        while ( getline (file2,line) )
+        {
+            cout << line << '\n';
+        }
+        file2.close();
+    }
+    else cout << "Unable to open "<<user<<"ACC_EX.txt\n";
+    cout<<"\nPress [ENTER]";
+    getchar();getchar();
 }
 
 void Login::showLogMenu() {
@@ -66,17 +74,30 @@ void Login::showLogMenu() {
     cout<<SHOWLOGMENU<<" - show logmenu\n";
     cout<<ADDACCESSORYEXERCISE<<" - add accessory exercise\n";
     cout<<ADDDMAINEXERCISE<<" - add main exercise\n";
-    cout<<ADDWORKOUT<<" - add workout\n";
-    cout<<CREATEWORKOUT<<" - create workout\n";
+    cout<<SAVEWORKOUT<<" - save created workout\n";
+    cout<<CREATEWORKOUT<<" - create new workout\n";
     cout<<SHOWHISTORY<<" - show history of workouts\n";
-    cout<<SHOWEXERCISES<<" - show exercises\n";
+    cout<<SHOWEXERCISES<<" - show created exercises\n";
+    cout<<GETVOLUME<<" - show volume of all saved workouts\n";
     cout<<LOGOUT<<" - logout\n";
 }
 
 void Login::logMenu() {
     MainExercise ex1(name,surname);
+    AccessoryExercise aex1(name,surname);
+    Exercise *e1 = &ex1;
+    Exercise *e2 = &aex1;
+
+    Exercise e3("",2.5),e4("",2.5);
+    Workout w1(name,surname);
+
+    if(e3==e4)
+    {
+        cout<<"Objects of class Exercise are equal\n";
+    }else cout<<"Objects of class Exercise are not equal\n";
+
     int option = 0;
-    while(1) {
+    while(true) {
         showLogMenu();
         cout<<"Choose:";
         option = err->isInt();
@@ -84,20 +105,35 @@ void Login::logMenu() {
             case SHOWLOGMENU:
                 break;
             case ADDACCESSORYEXERCISE:
+                e2->setName();
+                e2->setWeight(option);
+                e2->setWeight((double)option);
+                e2->showData();
+                e2->saveData();
                 break;
             case ADDDMAINEXERCISE:
-                //ex1 = new MainExercise(name,surname);
-                ex1.setName();
-                ex1.setWeight(option);
-               // ex1->setWeight((double)option);
-                ex1.showData();
-                ex1.saveData();
+                e1->setName();
+                e1->setWeight(option);
+                e1->setWeight((double)option);
+                e1->showData();
+                e1->saveData();
                 break;
-            case ADDWORKOUT:
+            case SAVEWORKOUT:
+                w1.saveWorkout();
                 break;
             case CREATEWORKOUT:
+                w1.createWorkout();
+                break;
+            case SHOWHISTORY:
+                w1.showHistory();
                 break;
             case SHOWEXERCISES:
+                showExercises();
+                break;
+            case GETVOLUME:
+                cout<<"Volume [kg]:"<<w1.getVolume()<<"\n";
+                cout<<"Press [ENTER]";
+                getchar();getchar();
                 break;
             case LOGOUT:
                 return;
@@ -107,3 +143,5 @@ void Login::logMenu() {
         }
     }
 }
+
+

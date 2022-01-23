@@ -8,8 +8,8 @@ MainExercise::MainExercise() {
 
 }
 
-MainExercise::MainExercise(string name,string surname) {
-    this->user=name+surname;
+MainExercise::MainExercise(string name,string surname):user(name+surname) {
+
 }
 
 MainExercise::~MainExercise() {
@@ -19,12 +19,13 @@ MainExercise::~MainExercise() {
 void MainExercise::saveData() {
     string stringpath = "usersDIR/"+user+"DIR/"+user+"M_EX.txt";
     mainex.open (stringpath,std::ios_base::app);
-    mainex<<currentDateTime()<<"\n";
-    mainex<<getWeight()<<"\n";
-    mainex<<getName()<<"\n";
-    mainex.close();
+    if(mainex.is_open()) {
+        mainex << currentDateTime() << "\n";
+        mainex << getName() << "\n";
+        mainex << getWeight() << "\n";
+        mainex.close();
+    }else cout<<stringpath<<" open ERROR\n";
+
+    return;
 }
 
-string MainExercise::getName() {
-    return name;
-}

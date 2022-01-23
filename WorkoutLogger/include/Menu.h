@@ -12,17 +12,27 @@
 #include "Error.h"
 #include "Register.h"
 #include "Login.h"
-#include <dir.h>
+#include <direct.h>
 
 using namespace std;
-static ofstream users;
+
+/**
+ * function returns actual date
+ * @return const string
+ */
 const std::string currentDateTime();
+static ofstream users;
 
-
+/*
+ *class Menu gives methods:
+ * getName, getSurname, getOption, showMenu
+ * fields:
+ * string name,surname,user
+ *  enum appMode
+ */
 class Menu {
-    friend class Register;
 private:
-    string name,surname;
+    string name,surname,user;
     enum appMode {
         LOGIN,
         REGISTER,
@@ -35,9 +45,29 @@ public:
     Menu();
     Menu(string,string);
     ~Menu();
+
+    /**
+     * function shows possible choices
+     */
     static void showMenu();
+
+    /**
+     * function is interface which gives user access
+     * to other parts off application such as:
+     * login, register, exit
+     */
     void getOption();
+
+    /**
+     * function returns class field = name
+    * @return string name
+    */
     string getName();
+
+    /**
+     * function returns class field = surname
+     * @return string surname
+     */
     string getSurname();
 };
 

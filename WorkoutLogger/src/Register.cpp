@@ -3,7 +3,7 @@
 //
 
 #include "Register.h"
-Register::Register() {
+Register::Register():name(""),surname("") {
 
 }
 
@@ -28,14 +28,38 @@ void Register::setSurname() {
 void Register::makeAcc() {
 
     users.open ("usersDIR/users.txt",std::ios_base::app);
+    if(!users.is_open())
+    {
+        cout<<"usersDIR/users.txt - Error while opening\n";
+        users.close();
+        return;
+    }
     users<<currentDateTime()<<"\n";
     users<<name<<" "<<surname<<"\n";
     users.close();
+
     string stringpath = "usersDIR/"+name+surname+"DIR/";
-    mkdir(stringpath.c_str());
+    if(_mkdir(stringpath.c_str()) == -1)
+    {
+        if(errno == EEXIST)
+        {
+            perror("mkdir Error while creating account");
+        }
+        if(errno == ENOENT)
+        {
+            perror("mkdir Error while creating account");
+        }
+        return;
+    }
+
     acc.open(stringpath + name+surname+".txt",std::ios_base::app);
+    if(!acc.is_open())
+    {
+        cout<<stringpath + name+surname+".txt Error while opening\n";
+        acc.close();
+        return;
+    }
     acc<<currentDateTime()<<" created\n";
     acc.close();
-    users.close();
 }
 

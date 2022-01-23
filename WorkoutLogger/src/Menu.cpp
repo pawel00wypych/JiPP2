@@ -1,13 +1,37 @@
 #include "../include/Menu.h"
-
+#include <exception>
 
 Menu::~Menu() {
 
 }
 
-Menu::Menu(string name,string surname):name(name),surname(surname){
-    system("mkdir usersDIR");
-    users.open ("usersaDIR/users.txt",std::ios_base::app);
+Menu::Menu():name(""),surname("") {
+
+}
+
+Menu::Menu(string name,string surname):name(name),surname(surname),user(name+surname){
+
+    //system("mkdir usersDIR");
+    string stringpath = "usersDIR/";
+    if(_mkdir(stringpath.c_str()) == -1)
+    {
+        if(errno == EEXIST)
+        {
+            perror("mkdir Error while creating account");
+        }
+        if(errno == ENOENT)
+        {
+            perror("mkdir Error while creating account");
+        }
+        return;
+    }
+
+    users.open("usersDIR/users.txt", std::ios_base::app);
+    if(!users.is_open())
+    {
+        cout<<"usersDIR/users.txt - error while trying to open\n";
+        users.close();
+    }
     users.close();
 }
 
@@ -23,19 +47,19 @@ void Menu::showMenu() {
 
 void Menu::getOption() {
 
-    currentDateTime();
     Register *us = new Register();
     Login *log = new Login();
     option = 0;
-    while(1) {
+
+    while(true) {
         showMenu();
         cout<<"Choose:";
-        Menu::option = err->isInt();
+        option = err->isInt();
         switch (option) {
             case LOGIN:
                     log->setName();
                     log->setSurname();
-                    log->openAcc();
+                    log->checkIfExist();
                 break;
             case REGISTER:
                    us->setName();
@@ -43,7 +67,6 @@ void Menu::getOption() {
                    us->makeAcc();
                 break;
             case SHOWMENU:
-                    showMenu();
                 break;
             case EXIT:
                 cout<<"***************************"<<"APP CLOSED"<<"***************************"<<endl;
@@ -57,7 +80,7 @@ void Menu::getOption() {
 }
 
 const std::string currentDateTime() {
-    time_t     now = time(0);
+    time_t     now = time(nullptr);
     struct tm  tstruct;
     char       buf[80];
     tstruct = *localtime(&now);
@@ -72,8 +95,4 @@ string Menu::getName() {
 
 string Menu::getSurname() {
     return surname;
-}
-
-Menu::Menu() {
-
 }

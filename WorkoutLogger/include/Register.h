@@ -5,24 +5,40 @@
 #ifndef FIRSTLIBCALL_REGISTER_H
 #define FIRSTLIBCALL_REGISTER_H
 
-#include <iostream>
-#include <string.h>
 #include <fstream>
+#include <direct.h>
 #include "Menu.h"
-#include <sys/stat.h>
 
 using namespace std;
 static ofstream acc;
 
+/*
+ * class Register includes methods:
+ * setSurname, setName, makeAcc
+ * fields:
+ * string name,surname
+ */
 class Register {
 private:
-    string name="",surname="";
+    string name,surname;
 public:
     Register();
     Register(string,string);
     ~Register();
+    /**
+     * sets string name using cin>>
+     */
     void setName();
+
+    /**
+     * sets string surname using cin>>
+     */
     void setSurname();
+
+    /**
+     * creates account by creating directory and txt file
+     * named as: name+surname
+     */
     void makeAcc();
 };
 
